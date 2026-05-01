@@ -1,6 +1,6 @@
 <h1>ExpNo 5 : Implement Simple Hill Climbing Algorithm</h1> 
-<h3>Name:             </h3>
-<h3>Register Number:             </h3>
+<h3>Name: A.PRIYADHARSHINI </h3>
+<h3>Register Number: 212224060196 </h3>
 <H3>Aim:</H3>
 <p>Implement Simple Hill Climbing Algorithm and Generate a String by Mutating a Single Character at each iteration </p>
 <h2> Theory: </h2>
@@ -38,6 +38,62 @@ Feedback is provided in terms of heuristic function
 <h3>Step-4:</h3>
 <p> Lopp Step -2 and Step-3  until we achieve the score to be Zero to achieve Global Minima.</p>
 
+<h3>Program:</h3>
+
+```
+import random
+import string
+
+# Fitness Function: Count mismatches
+def fitness(current, target):
+    score = sum(1 for a, b in zip(current, target) if a != b)
+    return score
+
+# Mutate one character in the string
+def mutate_string(s):
+    index = random.randint(0, len(s) - 1)
+    random_char = random.choice(string.ascii_letters)  # A-Z, a-z
+    return s[:index] + random_char + s[index + 1:]
+
+# Hill Climbing Algorithm
+def hill_climbing(target):
+    # Step 1: Generate random string
+    current = ''.join(random.choice(string.ascii_letters) for _ in range(len(target)))
+    current_fitness = fitness(current, target)
+
+    print("Initial String:", current, "Fitness:", current_fitness)
+
+    iteration = 0
+
+    # Step 4: Loop until global minima (fitness = 0)
+    while current_fitness > 0:
+        iteration += 1
+        
+        # Step 2: Mutate a single character
+        mutated = mutate_string(current)
+        
+        # Step 3: Evaluate fitness
+        mutated_fitness = fitness(mutated, target)
+
+        # Accept mutation only if it improves fitness
+        if mutated_fitness < current_fitness:
+            current = mutated
+            current_fitness = mutated_fitness
+            print(f"Iteration {iteration}: {current}   Fitness: {current_fitness}")
+
+    print("\nTarget string achieved!")
+    return current
+
+
+# ------------------------
+# MAIN PROGRAM
+# ------------------------
+
+target_string = input("Enter Target String: ")
+result = hill_climbing(target_string)
+
+print("Final Output:", result)
+```
 <hr>
 <h2>Sample Input and Output</h2>
 <h2>Sample String:</h2> Artificial Intelligence
@@ -59,3 +115,12 @@ Score: 1  Solution :  Artificial Intelligencf<br>
 Score: 1  Solution :  Artificial Intelligencf<br>
 Score: 1  Solution :  Artificial Intelligencf<br>
 Score: 0  Solution :  Artificial Intelligence<br>
+
+<h3>Output:</h3>
+
+<img width="435" height="307" alt="image" src="https://github.com/user-attachments/assets/b41e9fdd-0943-4405-aafc-376391e74097" />
+
+
+<h3>Result:</h3>
+
+Hill Climbing Algorithm and Generate a String by Mutating a Single Character at each iteration is implemented.
